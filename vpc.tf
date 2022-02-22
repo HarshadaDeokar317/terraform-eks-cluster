@@ -18,6 +18,16 @@ resource "random_string" "suffix" {
   special = false
 }
 
+terraform {
+  backend "s3"{
+
+    bucket = "statefilestorage"
+    key = "dev/terraform.tfstate"
+    region = "us-east-1"
+    dynamodb_table = "terraform_state"
+  }
+}
+
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "3.2.0"
